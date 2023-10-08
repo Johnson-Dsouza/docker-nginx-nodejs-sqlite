@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ./nodejs
+    container_name: app
+    networks:
+      - application
+  
+  webservice:
+    build:
+      context: ./nginx
+    container_name: webservice
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    networks:
+      - application
+
+networks:
+  application:
+    driver: bridge

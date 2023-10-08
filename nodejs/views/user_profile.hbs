@@ -1,0 +1,81 @@
+<script src="javascript/user_profile.js" defer></script>
+
+{{>header}}
+
+<main>
+
+  {{!-- make it better at a later date --}}
+
+  <div class="pageborder">
+
+    <div class="row align-items-center">
+      <!-- card -->
+      <div class="col justify-self-center align-items-center scale">
+        {{>membershipCard name=profile.fname surname=profile.lname id=profile.id}}
+      </div>
+      
+      <!-- Personal information -->
+      <div class="profile_info col">
+        <div class="d-flex flex-wrap align-items-center">
+          <h2><strong>{{profile.fname}} {{profile.lname}}</strong></h2>
+          <form action="/sign_out" method="get"> 
+            <input class="button-purple justify-self-end" type="submit" value="Sign Out"> 
+          </form>
+          
+        </div>
+        <div class="profileInfoDetails">
+          <h6><strong>ID</strong></h6>
+          <p>{{profile.id}}</p>
+          <h6><strong>E-mail</strong></h6>
+          <p>{{profile.email}}</p>
+          <h6><strong>Date of birth</strong></h6>
+          <p>{{profile.birthdate}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Borrowing State -->
+    <div class="borrowing_state">
+      <h2><strong>Borrowings</strong></h2>
+      {{#each borrowing}}
+        {{#if date_borrowed}}
+          {{>timeline 
+            img=photo
+            title=book_title
+            ISBN=book_isbn
+            library=library_name
+            libraryId=library_id
+            resDate=date_reserved
+            borDate=date_borrowed
+            retDate=date_return
+            returned=date_returned
+            overdue=overdue
+            difference=difference
+          }}
+        {{else}}
+          {{>timeline 
+              img=photo
+              title=book_title
+              ISBN=book_isbn
+              library=library_name
+              libraryId=library_id
+              resDate=date_reserved
+              borDate=date_borrowed
+              retDate=date_return
+              returned=date_returned
+              overdue=0
+              difference=difference
+            }}
+        {{/if}}
+      {{/each}}
+      
+    </div>
+
+
+
+
+
+
+
+
+</main>
